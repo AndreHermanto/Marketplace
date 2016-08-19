@@ -1,0 +1,117 @@
+<header class="header dark-bg"
+	data-ng-include="'app/shared/header/header.tpl.html'"> 
+	</header>
+<!--header end-->
+
+<!--sidebar start-->
+<aside data-ng-include="'app/shared/sidebar/sidebar.tpl.html'">
+
+</aside>
+<!--sidebar end-->
+<section id="main-content">
+	<!--overview start-->
+	<div class="row">
+		<div class="col-lg-12">
+			<h4 class="page-header">
+				<i class="fa fa-laptop"></i> Category
+			</h4>
+		</div>
+	</div>
+
+	<section
+		data-ng-include="'app/shared/notification/notification.tpl.html'"></section>
+	<section data-ng-include="'app/shared/searchbar/searchbar.tpl.html'"></section>
+
+	<div class="itemlist-box" data-ng-controller="ListCtrl as control">
+		<div data-ng-if="control.listService.arrSearchResults.length == 0">
+			<p class="no_results">No Results</p>
+		</div>
+		<div
+			data-dir-paginate="item in control.listService.arrSearchResults | filter:q | itemsPerPage: control.listService.pageSize"
+			data-current-page="currentPage">
+			<div class="listelt-bar">
+				<div class="row">
+					<div class="col-lg-2 ">
+						<div class="image-listelt" data-ng-click="displayItem(item)">
+							<a href=""> <!--Item image--> <img class="item-image"
+								src="../assets/img/unknown.png" alt="">
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-8 listelt">
+						<div class="row">
+							<div class="col-lg-4 listelt-title">{{item.title}}</div>
+							<div class="col-lg-8 listelt-subtitle">{{item.subtitle}}</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 listelt-description">
+								{{item.description}} <br /> {{control.title}}
+							</div>
+
+							<div class="col-lg-12 listelt-description">
+								Category: {{item.category}} 
+								
+								<div ng-if="item.rate > 0" class="rating">
+								<br/>
+								Rate: <span ng-repeat="i in [1,2,3,4,5] | limitTo:item.rate">☆</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-1 ">
+						<p class="listelt-installbox">
+							
+							<span data-ng-if="!item.installed"> <a
+								class="btn btn-success listelt-install" title="Install the item"
+								data-ng-click="installItem(item)">Install</a>
+							</span> <span data-ng-if="item.installed">
+							
+							<span
+								data-ng-if="item.update"><a
+									class="btn btn-warning listelt-install"
+									title="Install the item" data-ng-click="updateItem(item)">Update</a></span>
+
+
+								<span id="dynamicButton" data-ng-if="!item.update"><a
+									class="btn btn-default listelt-install" href=""
+									title="Install the item" data-ng-click="installItem(item)"
+									disabled>Installed</a> </span> </span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div
+			data-ng-if="control.searchService.userSearched == true && control.searchService.arrSearchResults.length == 0">
+			<h4>No results found</h4>
+		</div>
+	</div>
+	<!-- project team & activity end -->
+
+	<div id="myModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- dialog body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-ng-controller="PaginationCtrl" class="other-controller">
+		<div class="text-center">
+			<span data-dir-pagination-controls data-boundary-links="true"
+				data-on-page-change="pageChangeHandler(newPageNumber)"
+				data-template-url="../app/components/pagination/pagination.tpl.html"></span>
+		</div>
+	</div>
+
+</section>
+

@@ -1,0 +1,27 @@
+<div data-ng-controller="HeaderCtrl as control">
+	<div class="toggle-nav">
+		<div class="icon-reorder tooltips"
+			data-original-title="Toggle Navigation" data-placement="bottom"></div>
+	</div>
+
+	<a href="#/index" class="logo">Market <span class="lite">Place</span></a>
+
+	<div class="top-nav notification-row">
+		<ul class="nav pull-right top-menu">
+			<li class="dropdown"><a data-toggle="dropdown"
+				class="dropdown-toggle" href=""> <span class="profile-ava">
+				</span> <span class="username">{{control.loginService.getData('App.Firstname').concat(" ").concat(control.loginService.getData('App.Lastname'))}}</span> <b
+					class="caret"></b>
+			</a>
+				<ul class="dropdown-menu extended logout">
+
+					<li class="eborder-top"><a href="#/profile"><i
+							class="icon_profile"></i> My Profile</a></li>
+					<li data-ng-click="control.resetValues()"><a href="#/login"><i
+							class="icon_key_alt"></i> Log out</a></li>
+				</ul></li>
+		</ul>
+	</div>
+</div>
+
+

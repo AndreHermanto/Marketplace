@@ -1,0 +1,45 @@
+<!-- container section start -->
+	<section id="container">
+
+		<!--main content start-->
+		<section id="main-content">
+			<div class="container"
+				data-ng-controller="RegisterCtrl as control">
+				<div class="card card-container">
+					<img id="profile-img" class="profile-img-card"
+						src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+					<p id="profile-name" class="profile-name-card"></p>
+					<form class="form-signin">
+						<input type="text" id="inputFirstname" class="form-control"
+							placeholder="Firstname" required autofocus
+							data-ng-model="firstname" required> <input type="text"
+							id="inputLastname" class="form-control" placeholder="Lastname"
+							required data-ng-model="lastname" required>
+
+						<div class="dropdown">
+							<select class="form-control" data-ng-model="selectedCompany"
+								data-ng-options="company.name for company in companies"
+								required>
+								<option value="" disabled selected>Company</option>
+							</select>
+						</div>
+
+						<input type="submit"
+							class="btn btn-primary btn-block btn-signin signin-text"
+							value="Register"
+							data-ng-click="createUser(firstname, lastname, selectedCompany)">
+					</form>
+					<!-- /form -->
+					<div class="link-block">
+						<div>
+							<a href="#/login" class="links"> Login </a>
+						</div>
+					</div>
+				</div>
+				<!-- /card-container -->
+			</div>
+			<!-- /container -->
+		</section>
+
+		<!--main content end-->
+	</section>

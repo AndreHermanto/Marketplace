@@ -1,0 +1,49 @@
+[
+  {
+    "CLASS": "com.mincom.ellipse.edoi.ejb.menu_item.MENU_ITEMRec",
+    "INSTANCE": {
+      "m_creationDate": "20150824",
+      "m_creationTime": "001616",
+      "m_creationUser": "SR4187",
+      "m_lastModDate": "20150824",
+      "m_lastModTime": "001616",
+      "m_lastModUser": "SR4187",
+      "m_menuType": "",
+      "m_invokationString": "",
+      "primaryKey": {
+        "m_uuid": "3b4d95fe3dd3432fb00cde0cc25f903f"
+      }
+    }
+  },
+  {
+    "CLASS": "com.mincom.ellipse.edoi.ejb.i18n_descriptions.I18N_DESCRIPTIONSRec",
+    "INSTANCE": {
+      "m_creationDate": "20150824",
+      "m_creationTime": "001616",
+      "m_creationUser": "SR4187",
+      "m_lastModDate": "20150824",
+      "m_lastModTime": "001616",
+      "m_lastModUser": "SR4187",
+      "m_description": "CUSTOM_MENU",
+      "primaryKey": {
+        "m_locale": "en",
+        "m_uuid": "3b4d95fe3dd3432fb00cde0cc25f903f"
+      }
+    }
+  },
+  {
+    "CLASS": "com.mincom.ellipse.edoi.ejb.top_level_menus.TOP_LEVEL_MENUSRec",
+    "INSTANCE": {
+      "m_creationDate": "20150824",
+      "m_creationUser": "SR4187",
+      "m_lastModDate": "20150824",
+      "m_lastModTime": "001620",
+      "m_creationTime": "001620",
+      "m_lastModUser": "SR4187",
+      "m_uuid": "3b4d95fe3dd3432fb00cde0cc25f903f",
+      "primaryKey": {
+        "m_name": "SX"
+      }
+    }
+  }
+]

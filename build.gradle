@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+springBoot {
+	mainClass = "src.main.java.controller.Application"
+}
+
+jar {
+    baseName = 'gs-rest-service-cors'
+    version =  '0.1.0'
+}
+
+
+
+repositories {
+    mavenCentral()
+    ivy {
+	    url "http://nexus.ventyx.abb.com/nexus/content/repositories/releases_ji"
+	    layout "maven"
+	}
+	ivy {
+		url "http://nexus.ventyx.abb.com/nexus/content/repositories/snapshots"
+		layout "maven"
+	}
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+	  compile("org.springframework.boot:spring-boot-starter-web")
+	  compile("com.fasterxml.jackson.core:jackson-databind")
+	  compile("com.orientechnologies:orientdb-graphdb:2.1.0")
+	  compile("com.orientechnologies:orientdb-core:2.1.0")
+	  compile("com.tinkerpop.blueprints:blueprints-core:2.6.0")
+	  compile("mincom:edoi-common-ejb:5.6.0.0_ceed_core_2")
+	  compile("com.google.code.gson:gson:2.3.1")
+	  compile("com.googlecode.json-simple:json-simple:1.1.1")
+	  compile("junit:junit:4.4")
+	  compile group:"mincom", name:"edoi-module-1000", version:"5.6.0.0_ga_184", transitive: false
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

@@ -1,0 +1,43 @@
+#myModal {
+	margin-top: 15%;
+	margin-left: 15%;
+}
+
+#myModalEdit {
+	margin-top: 5%;
+	margin-left: 15%;
+}
+
+
+.modal_title {
+	font-size: 20px;
+}
+
+.modal_content {
+	margin-top: 3%;
+}
+
+.form-control.modal_input {
+	width: 100%;
+	margin-top: 4%;
+}
+
+.btn.floated {
+	float: left;
+   	margin-right: 15px;
+}
+
+.profile_update {
+	width: 150px;
+	margin-left: 35%;
+}
+
+.form-update {
+	float:left;
+	width: 250px;
+	margin-top: 3%;
+}
+
+.image_update {
+	overflow: hidden;
+}

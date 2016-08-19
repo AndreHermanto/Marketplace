@@ -1,0 +1,17 @@
+<div data-ng-controller="NotificationCtrl as control">
+	<div data-ng-if="control.notificationService.arrNotificationResults.length > 0">
+		<div data-ng-repeat="item in control.notificationService.arrNotificationResults">
+			<div data-ng-if="!item.discarded">
+				<div class="alert alert-warning alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close"
+						data-ng-click="control.discardNotification(item)">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong>Warning!</strong>An item has been updated! <a href=""
+						data-ng-click=itemClicked(item)> {{item.title}} </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

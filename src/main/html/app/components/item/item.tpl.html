@@ -1,0 +1,324 @@
+<header class="header dark-bg"
+	data-ng-include="'app/shared/header/header.tpl.html'"> </header>
+<!--header end-->
+
+<!--sidebar start-->
+<aside data-ng-include="'app/shared/sidebar/sidebar.tpl.html'">
+
+</aside>
+<!--sidebar end-->
+
+<!--main content start-->
+<section id="main-content">
+	<!--overview start-->
+	<div class="row">
+		<div class="col-lg-12">
+			<h4 class="page-header">
+				<i class="fa fa-laptop"></i> Category
+			</h4>
+		</div>
+	</div>
+
+	<section
+		data-ng-include="'app/shared/notification/notification.tpl.html'"></section>
+
+	<section class="wrapper">
+		<!--overview start-->
+		<div class="row" data-ng-controller="ItemCtrl as control">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<div class="info-box grey-bg">
+					<!--Item image box-->
+					<div class="image-box"></div>
+					<div class="install-box text-center">
+						<span data-ng-if="!currentItem.installed"> <a
+							class="btn btn-success btn-lg listelt-install"
+							title="Install the item" data-ng-click="installItem(currentItem)">Install</a>
+						</span> <span data-ng-if="currentItem.installed"> <span
+							data-ng-if="currentItem.update"><a
+								class="btn btn-warning btn-lg listelt-install"
+								title="Install the item" data-ng-click="updateItem(currentItem)">Update</a></span>
+
+							<span id="dynamicButton" data-ng-if="!currentItem.update"><a
+								class="btn btn-default btn-lg listelt-install" href=""
+								title="Install the item"
+								data-ng-click="installItem(currentItem)" disabled>Installed</a>
+						</span>
+						</span> <br /> <br /> <span
+							data-ng-if="currentItem.uploadedBy != currentUser && currentItem.installed">
+							<span class="btn btn-primary"
+							data-ng-click="bootbox.modalShow('#myModalRate')">Rate
+								This Item!</span> <span class="btn btn-warning"
+							data-ng-click="bootbox.modalShow('#myModalComment')">Add
+								Comment</span>
+
+						</span> <span data-ng-if="currentItem.uploadedBy == currentUser">
+							<a class="btn btn-warning btn-lg listelt-install"
+							title="Install the item"
+							data-ng-click="bootbox.modalShow('#myModalEdit')">Edit</a>
+						</span>
+					</div>
+
+					<!--Item image box-->
+					<div class="detail-box blue-bg">
+						<div class="detail-title">
+							<h3>Additional details</h3>
+						</div>
+
+						<!--Additional details box-->
+						<div class="item-details-box text-center">
+							<div class="row">
+								<div
+									class="item-detail-title col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									Date created</div>
+								<div
+									class="item-detail-value col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									18 July 2015</div>
+
+								<div
+									class="item-detail-title col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									UploadedBy</div>
+								<div
+									class="item-detail-value col-lg-6 col-md-6 col-sm-6 col-xs-6"
+									ng-show="currentItem.uploadedBy != ''">
+									{{currentItem.uploadedBy}}</div>
+								<div
+									class="item-detail-value col-lg-6 col-md-6 col-sm-6 col-xs-6"
+									ng-show="currentItem.uploadedBy == ''">Unknown</div>
+								<div
+									class="item-detail-title col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									Rating:</div>
+								<div class="rating">
+
+									<span id="rating-visual"
+										data-ng-repeat="i in [1,2,3,4,5] | limitTo:currentItem.rate">☆</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--/.info-box-->
+			</div>
+			<!--/.col-->
+
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<div class="info-box blue-bg">
+					<!--Item title/subtitle box-->
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="item-title text-center">{{currentItem.title}}</div>
+							<div class="item-subtitle text-center">{{currentItem.subtitle}}</div>
+						</div>
+					</div>
+
+					<!--Item information box-->
+					<div class="row item-info-box">
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+							<div class="item-info-title text-center">Version</div>
+							<div class="item-info-value text-center">2.0.1</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+							<div class="item-info-title text-center">Compatibility</div>
+							<div class="item-info-value text-center">Ellipse 1.7, 1.8</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+							<div class="item-info-title text-center">Category</div>
+							<div class="item-info-value text-center">{{currentItem.category}}</div>
+						</div>
+					</div>
+
+					<div class="boxes">
+						<!--Item description box-->
+						<div class="item-description-box text-center">
+							<div class="item-description-title text-center">Description</div>
+							<div class="item-description-value text-center">{{currentItem.description}}</div>
+						</div>
+
+						<!--Item comments box-->
+						<div class="item-comment-box text-center">
+							<div class="item-description-title text-center">Comments</div>
+							<div
+								data-ng-repeat="comment in control.itemService.getData('App.ItemComments')[currentItem.id]">
+								<div class="listcomment-bar">
+									<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+										<b>{{comment["key"][0]}}</b> <b>{{comment["key"][1]}}</b> from
+										<b>{{comment["key"][2]}}</b> said: <br /> {{comment["value"]}}
+									</div>
+									<div
+										data-ng-if="comment['key'][0] == loginService.getData('App.Firstname') && comment['key'][1] == loginService.getData('App.Lastname')">
+										<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+											<button type="button" class="close" ng-click="deleteComment(comment['value'])">&times;</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/.info-box-->
+			</div>
+			<!--/.col-->
+		</div>
+		<!--/.row-->
+	</section>
+</section>
+<!--main content end-->
+
+<div id="myModalEdit" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- dialog body -->
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+				<div class="modal_title">Edit Item</div>
+				<div class="modal_content">
+					<div class="form-left-modal">
+						<form>
+							<div class="form-group">
+								<label for="title">Title</label> <input type="text" id="title"
+									class="form-control" id="title"
+									placeholder={{currentItem.title}}>
+							</div>
+
+							<div class="form-group">
+								<label for="subtitle">Subtitle</label> <input type="text"
+									id="subtitle" class="form-control" id="subtitle"
+									placeholder={{currentItem.subtitle}}>
+							</div>
+
+							<div class="form-group">
+								<label for="description">Description</label>
+								<textarea class="form-control" rows="3" id="description"
+									placeholder={{currentItem.description}}></textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="description">Category</label> <select
+									class="form-control category-select"
+									data-ng-model="selectedCategory"
+									data-ng-options="item.title as item.title for item in categories"
+									id="category-select">
+									<option value="" selected>All categories</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="compatibility">Compatibility</label> <select
+									id="compatibility-select"
+									class="form-control compatibility-select">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="version">Version</label> <select id="version-select"
+									class="form-control version-select">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+								</select>
+							</div>
+						</form>
+					</div>
+
+					<div class="form-right-modal">
+						<form>
+							<div class="form-group">
+								<div class="image-box-modal"></div>
+							</div>
+
+							<div class="form-group">
+								<div class="form-file">
+									<label for="file">File</label> <span class="input-group-btn">
+										<input type="file" id="fileinput" accept=".json"
+										onchange="angular.element(this).scope().openFile(event)">
+									</span>
+								</div>
+							</div>
+						</form>
+
+						<div class="form-buttons-modal">
+							<button type="submit" id="updateButton"
+								class="btn btn-lg btn-success floated"
+								data-ng-click="editItem(currentItem)">Edit</button>
+							<button type="button" class="btn btn-lg btn-default floated"
+								data-ng-click="bootbox.modalDismiss('#myModalEdit')">Cancel</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- dialog buttons -->
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>
+
+<div id="myModalRate" class="modal fade ratePopup">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- dialog body -->
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+				<div class="modal_title">Rate</div>
+				<!-- todo -->
+				<span class="starRating center"> <input class="center"
+					id="rating5" type="radio" name="rating" value="5"
+					data-ng-model="stars"> <label for="rating5">5</label> <input
+					id="rating4" type="radio" name="rating" value="4"
+					data-ng-model="stars"> <label for="rating4">4</label> <input
+					id="rating3" type="radio" name="rating" value="3" checked
+					data-ng-model="stars"> <label for="rating3">3</label> <input
+					id="rating2" type="radio" name="rating" value="2"
+					data-ng-model="stars"> <label for="rating2">2</label> <input
+					id="rating1" type="radio" name="rating" value="1"
+					data-ng-model="stars"> <label for="rating1">1</label>
+				</span>
+			</div>
+			<!-- dialog buttons -->
+			<div class="modal-footer">
+				<div class="modal-buttons">
+					<button type="submit" id="updateButton"
+						class="btn btn-lg btn-success floated"
+						data-ng-click="rateItem(currentItem,stars)">Submit</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div id="myModalComment" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- dialog body -->
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal_title">Comment</div>
+			<div class="form-group">
+				<textarea class="form-control" rows="5" id="comment"
+					data-ng-model="comment"></textarea>
+			</div>
+			<!-- dialog buttons -->
+			<div class="modal-footer">
+				<div class="modal-buttons">
+					<button type="submit" class="btn btn-lg btn-success floated"
+						data-ng-click="addComment(currentItem,comment)">Submit</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+

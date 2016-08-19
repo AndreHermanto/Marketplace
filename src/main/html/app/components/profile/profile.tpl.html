@@ -1,0 +1,191 @@
+<style>
+.profile {
+	display: inline-block;
+	border-style: solid;
+	border-width: 3px;
+	margin-top: 3%;
+	margin-left: 3%;
+	width: 94%
+}
+
+.bio {
+	margin: 25px;
+	font-size: 150%;
+}
+
+.profpic {
+	border-style: solid;
+	padding: 2%;
+	border-width: 3px;
+	margin: 10%;
+}
+
+.button {
+	margin-bottom: 5%;
+}
+
+.uploaded {
+	height: 450px;
+	display: inline-block;
+	border-style: solid;
+	border-width: 3px;
+	margin-top: 2%;
+	margin-left: 3%;
+	padding: 1%;
+	width: 94%;
+	overflow: auto;
+}
+</style>
+<!-- container section start -->
+<header class="header dark-bg"
+	data-ng-include="'app/shared/header/header.tpl.html'"> </header>
+<!--header end-->
+
+<!--sidebar start-->
+<aside data-ng-include="'app/shared/sidebar/sidebar.tpl.html'">
+
+</aside>
+<!--sidebar end-->
+
+<section id="main-content">
+	<!--overview start-->
+	<div class="row">
+		<div class="col-lg-12">
+			<h4 class="page-header">
+				<i class="fa fa-laptop"></i> Category
+			</h4>
+		</div>
+	</div>
+</section>
+
+<!--main content start-->
+<section id="main-content">
+	<div class="profile_box" data-ng-controller="ProfileCtrl as control">
+		<div class="data col-md-8">
+			<h3>Profile</h3>
+			<div class="profile_info">
+				<p class="bio">Firstname:
+					{{control.loginService.getData('App.Firstname')}}</p>
+				<p class="bio">Lastname:
+					{{control.loginService.getData('App.Lastname')}}</p>
+			</div>
+		</div>
+		<div class="photo col-md-4">
+			<div align="center">
+				<div class="profile_picture">
+					<img src="../assets/img/unknown.png"></img>
+				</div>
+				<button class="btn btn-info button_update"
+					data-ng-click="bootbox.modalShow('#myModal')">EDIT PROFILE</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="uploaded">
+		<h3>Uploaded Items</h3>
+		<div class="itemlist-box" data-ng-controller="ListCtrl as control">
+			<div data-ng-if="control.listService.arrSearchResults.length == 0">
+				<p class="no_results">No Results</p>
+			</div>
+			<div ng-repeat="item in listItems">
+				<div class="listelt-bar">
+					<div class="row">
+						<div class="col-lg-2 ">
+							<div class="image-listelt" data-ng-click="displayItem(item)">
+								<a href=""> <!--Item image--> <img class="item-image"
+									src="../assets/img/unknown.png" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-8 listelt">
+							<div class="row">
+								<div class="col-lg-4 listelt-title">{{item.title}}</div>
+								<div class="col-lg-8 listelt-subtitle">{{item.subtitle}}</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12 listelt-description">
+									{{item.description}} <br /> <br /> {{control.title}}
+								</div>
+
+								<div class="col-lg-12 listelt-description">
+									Category: {{item.category}} <br />
+
+									<div ng-if="item.rate > 0" class="rating">
+										Rate: <span ng-repeat="i in [1,2,3,4,5] | limitTo:item.rate">☆</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-lg-1 ">
+							<p class="listelt-installbox">
+								<span data-ng-if="!item.installed"> <a
+									class="btn btn-success listelt-install"
+									title="Install the item" data-ng-click="installItem(item)">Install</a>
+								</span> <span data-ng-if="item.installed"> <span
+									data-ng-if="item.update"><a
+										class="btn btn-warning listelt-install"
+										title="Install the item" data-ng-click="updateItem(item)">Update</a></span>
+
+
+									<span id="dynamicButton" data-ng-if="!item.update"><a
+										class="btn btn-default listelt-install" href=""
+										title="Install the item" data-ng-click="installItem(item)"
+										disabled>Installed</a> </span>
+								</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				data-ng-if="control.searchService.userSearched == true && control.searchService.arrSearchResults.length == 0">
+				<h4>No results found</h4>
+			</div>
+		</div>
+	</div>
+
+	<div id="myModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- dialog body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+					<div class="modal_title">Update Profile</div>
+					<div class="modal_content">
+						<div class="form_update">
+							<form class="form-update">
+								<input type="text" id="inputFirstname"
+									class="form-control modal_input" placeholder="Firstname"
+									required autofocus data-ng-model="firstname" required>
+								<input type="text" id="inputLastname"
+									class="form-control modal_input" placeholder="Lastname"
+									required data-ng-model="lastname" required>
+							</form>
+						</div>
+						<div class="image_update">
+							<div class="text-center">
+								<img class="profile_update" src="../assets/img/unknown.png"
+									alt="">
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="submit" id="updateButton"
+						class="btn btn-lg btn-success floated"
+						data-ng-click="updateUser(firstname, lastname)">Update</button>
+					<button type="button" class="btn btn-lg btn-default floated"
+						data-ng-click="bootbox.modalDismiss('#myModal')">Cancel</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>

@@ -1,0 +1,104 @@
+<header class="header dark-bg"
+	data-ng-include="'app/shared/header/header.tpl.html'"> </header>
+<!--header end-->
+
+<!--sidebar start-->
+<aside data-ng-include="'app/shared/sidebar/sidebar.tpl.html'">
+
+</aside>
+<!--sidebar end-->
+
+<!--main content start-->
+<section id="main-content">
+	<!--overview start-->
+	<div class="row">
+		<div class="col-lg-12">
+			<h4 class="page-header">
+				<i class="fa fa-laptop"></i> Category
+			</h4>
+		</div>
+	</div>
+	<h3>Upload an item</h3>
+	<!--overview start-->
+	<div class="add-content-form" data-ng-controller="CreateCtrl as control">
+		<div class="form-left">
+			<form>
+				<div class="form-group">
+					<label class="add-content" for="title">Title</label> <input
+						type="text" id="title" class="form-control" id="title"
+						placeholder="Title" required>
+				</div>
+
+				<div class="form-group">
+					<label class="add-content" for="description">Description</label>
+					<textarea class="form-control" rows="3" id="description" required></textarea>
+				</div>
+
+				<div class="form-group">
+					<label class="add-content" for="description">Import file</label>
+					<div class="input-group">
+						<span class="input-group-btn"> <span
+							class="btn btn-primary btn-file"> Browse&hellip; <input
+								type="file" id="fileinput" accept=".json"
+									onchange="angular.element(this).scope().openFiles(event)">
+						</span>
+						</span> <input type="text" class="form-control file-uploaded" readonly>
+					</div>
+				</div>
+
+				<div class="form-buttons">
+					<button type="submit" id="updateButton"
+						class="btn btn-lg btn-success floated"
+						data-ng-click="createItem()">Save</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="form-right">
+			<form>
+				<div class="form-group">
+					<label class="add-content" for="subtitle">Subtitle</label> <input
+						type="text" id="subtitle" class="form-control" id="subtitle"
+						placeholder="Subtitle" required>
+				</div>
+				<div class="form-group">
+					<div class="category-select">
+						<label class="add-content" for="description">Category</label> <select
+							class="form-control category-select"
+							data-ng-model="selectedCategory"
+							data-ng-options="item.title as item.title for item in categories"
+							id="category-select" required>
+							<option value="" selected>All categories</option>
+						</select>
+					</div>
+					<div class="compatibility-select">
+						<label class="add-content" for="compatibility">Compatibility</label>
+
+						<select id="compatibility-select"
+							class="form-control compatibility-select">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+					</div>
+
+					<div class="version-select">
+						<label class="add-content" for="version">Version</label> <select
+							id="version-select" class="form-control version-select">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!--/.col-->
+	</div>
+	<!--/.row-->
+</section>
+<!--main content end-->

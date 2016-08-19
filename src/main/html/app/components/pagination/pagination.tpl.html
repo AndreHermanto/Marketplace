@@ -1,0 +1,18 @@
+<ul class="pagination" data-ng-if="1 < pages.length">
+    <li data-ng-if="boundaryLinks" data-ng-class="{ disabled : pagination.current == 1 }">
+        <span data-ng-click="setCurrent(1)">&laquo;</span>
+    </li>
+    <li data-ng-if="directionLinks" data-ng-class="{ disabled : pagination.current == 1 }" class="ng-scope">
+        <span data-ng-click="setCurrent(pagination.current - 1)" class="ng-binding">&lsaquo;</span>
+    </li>
+    <li data-ng-repeat="pageNumber in pages track by $index" data-ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+        <span data-ng-click="setCurrent(pageNumber)">{{ pageNumber }}</span>
+    </li>
+
+    <li data-ng-if="directionLinks" data-ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope">
+        <span data-ng-click="setCurrent(pagination.current + 1)" class="ng-binding">&rsaquo;</span>
+    </li>
+    <li data-ng-if="boundaryLinks"  data-ng-class="{ disabled : pagination.current == pagination.last }">
+        <span data-ng-click="setCurrent(pagination.last)">&raquo;</span>
+    </li>
+</ul>
